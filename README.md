@@ -1,42 +1,56 @@
 # Garagem da Paulinha
 
-Base inicial do projeto Garagem da Paulinha com Next.js e shadcn/ui.
-https://ui.shadcn.com/create?item=preview&preset=b6lcVNtyAC
+Base em Next.js 16 com shadcn/ui, Firebase Web SDK, Firestore e setup inicial de PWA.
+
+## Firebase local
+
+1. As credenciais web ja estao em `.env.local`.
+2. Rode `npm run dev` para validar a tela de diagnostico local.
+3. O Analytics e inicializado apenas no client.
+
+## Firestore
+
+- As regras estao em `firestore.rules`.
+- Os indices estao em `firestore.indexes.json`.
+- A leitura de teste usa o documento `app_public/status`.
+- Para publicar regras: `npm run firebase:rules`.
+- Para publicar indices: `npm run firebase:indexes`.
+- Para rodar o emulador local: `npm run firebase:emulators`.
+
+## Firebase Hosting
+
+- Este projeto esta configurado para export estatico com `output: "export"`.
+- O deploy vai para o Firebase Hosting tradicional usando a pasta `out`.
+- Para publicar so o site: `npm run firebase:hosting`.
+- Para publicar site + regras + indices: `npm run firebase:deploy`.
+- Esse caminho evita App Hosting e GitHub integration.
+
+## PWA
+
+- O manifesto esta em `app/manifest.ts`.
+- O service worker e gerado via `@ducanh2912/next-pwa`.
+- Em desenvolvimento o service worker fica desabilitado para evitar cache persistente.
+- Para validar instalacao real, rode `npm run build && npm run start`.
+
+## Passo a passo de teste
+
+1. No Firebase Console, crie o Cloud Firestore em modo Production.
+2. Crie o documento `app_public/status` com um campo `message`.
+3. Faça login na CLI com `npm run firebase:login`.
+4. Selecione o projeto com `npm run firebase:use`.
+5. Publique as regras com `npm run firebase:rules`.
+6. Publique o site com `npm run firebase:hosting`.
+7. Abra a home online e confirme a leitura real do Firestore.
 
 ## Docker
-
-The project includes a development setup for Docker Compose.
 
 - Project name: `garagem-da-paulinha`
 - Service name: `app`
 - Container name: `garagem-da-paulinha-app`
 - App URL: `http://localhost:3000`
-- VS Code Dev Container uses the same `app` service
 
-To start with Docker:
+Para subir com Docker:
 
 ```bash
 docker compose up --build
-```
-
-In Docker Desktop, start the `app` service from the `garagem-da-paulinha` project. The published port `3000` will expose a clickable link to `http://localhost:3000`.
-
-To reopen the project inside the same container in VS Code, use `Dev Containers: Reopen in Container`. The workspace will attach to the `app` service from `compose.yaml` instead of creating a random standalone container.
-
-## Adding components
-
-To add components to your app, run the following command:
-
-```bash
-npx shadcn@latest add button
-```
-
-This will place the ui components in the `components` directory.
-
-## Using components
-
-To use the components in your app, import them as follows:
-
-```tsx
-import { Button } from "@/components/ui/button";
 ```

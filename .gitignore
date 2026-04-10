@@ -31,6 +31,15 @@ pnpm-debug.log*
 # env files
 .env*.local
 
+# firebase artifacts
+.firebase/
+
+# generated PWA assets
+public/sw.js
+public/workbox-*.js
+public/swe-worker-*.js
+public/fallback-*.js
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
