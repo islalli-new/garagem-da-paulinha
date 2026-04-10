@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Geist, JetBrains_Mono, Montserrat } from "next/font/google"
+import { Geist, JetBrains_Mono, Merriweather, Roboto_Slab } from "next/font/google"
 
 import "./globals.css"
 import { FirebaseAnalytics } from "@/components/shared/organisms/firebase-analytics"
@@ -7,7 +7,9 @@ import { InstallPromptBanner } from "@/components/shared/organisms/install-promp
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 
-const montserratHeading = Montserrat({ subsets: ["latin"], variable: "--font-heading" })
+const robotoSlab = Roboto_Slab({subsets:['latin'],variable:'--font-serif'});
+
+const merriweatherHeading = Merriweather({subsets:['latin'],variable:'--font-heading'})
 
 const fontSans = Geist({
   subsets: ["latin"],
@@ -50,9 +52,10 @@ export default function RootLayout({
       className={cn(
         "antialiased",
         fontSans.variable,
-        "font-mono",
         jetbrainsMono.variable,
-        montserratHeading.variable,
+        "font-serif",
+        robotoSlab.variable,
+        merriweatherHeading.variable,
       )}
     >
       <body>
