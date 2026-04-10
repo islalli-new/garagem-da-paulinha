@@ -1,13 +1,10 @@
 {
-    "name": "pdviu",
+    "name": "garagem-da-paulinha",
     "dockerComposeFile": ["../compose.yaml"],
     "service": "app",
     "workspaceFolder": "/app",
     "shutdownAction": "stopCompose",
     "overrideCommand": false,
-    "features": {
-        "ghcr.io/devcontainers/features/git:1": {}
-    },
     "customizations": {
         "vscode": {
             "settings": {

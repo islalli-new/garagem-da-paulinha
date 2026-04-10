@@ -6,10 +6,12 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 COPY package.json package-lock.json ./
 RUN apt-get update \
-	&& apt-get install -y --no-install-recommends ca-certificates zsh \
+	&& apt-get install -y --no-install-recommends ca-certificates git zsh \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN npm ci
+
+RUN git config --global --add safe.directory /app
 
 COPY . .
 
