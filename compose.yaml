@@ -1,0 +1,27 @@
+name: pdviu
+
+services:
+  app:
+    container_name: pdviu-app
+    hostname: pdviu-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_TELEMETRY_DISABLED: "1"
+      HOSTNAME: "0.0.0.0"
+      PORT: "3000"
+      WATCHPACK_POLLING: "true"
+    volumes:
+      - .:/app
+      - pdviu_node_modules:/app/node_modules
+      - pdviu_next:/app/.next
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+
+volumes:
+  pdviu_node_modules:
+  pdviu_next:
