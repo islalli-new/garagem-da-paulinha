@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { Geist, Geist_Mono, JetBrains_Mono, Montserrat } from "next/font/google"
 
 import "./globals.css"
@@ -13,6 +14,11 @@ const fontSans = Geist({
 
 const jetbrainsMono = JetBrains_Mono({subsets:['latin'],variable:'--font-mono'})
 
+export const metadata: Metadata = {
+  title: "Garagem da Paulinha",
+  description: "Plataforma da Garagem da Paulinha para operar, organizar e evoluir o negocio.",
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -20,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="pt-BR"
       suppressHydrationWarning
       className={cn("antialiased", fontSans.variable, "font-mono", jetbrainsMono.variable, montserratHeading.variable)}
     >

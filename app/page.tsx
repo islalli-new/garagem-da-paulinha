@@ -2,18 +2,34 @@ import { Button } from "@/components/ui/button"
 
 export default function Page() {
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
+    <main className="flex min-h-svh items-center justify-center p-6">
+      <section className="flex max-w-2xl min-w-0 flex-col gap-6 border border-border bg-card p-8 text-sm shadow-sm">
+        <div className="space-y-3">
+          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+            Novo projeto base
+          </p>
+          <h1 className="font-heading text-4xl leading-none sm:text-5xl">
+            Garagem da Paulinha
+          </h1>
+          <p className="max-w-xl text-base leading-7 text-muted-foreground">
+            O repositório foi rebatizado e está pronto para começar a estrutura do novo produto com a identidade da Garagem da Paulinha.
+          </p>
         </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
+
+        <div className="flex flex-wrap gap-3 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+          <span>Next.js</span>
+          <span>shadcn/ui</span>
+          <span>Tailwind CSS</span>
+          <span>Docker</span>
         </div>
-      </div>
-    </div>
+
+        <div className="flex flex-wrap items-center gap-3">
+          <Button>Comecar a construir</Button>
+          <span className="font-mono text-xs text-muted-foreground">
+            Pressione <kbd>d</kbd> para alternar o tema
+          </span>
+        </div>
+      </section>
+    </main>
   )
 }

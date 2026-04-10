@@ -1,4 +1,4 @@
-# Contexto e regras do Projeto PDViu
+# Contexto e regras do Projeto Garagem da Paulinha
 - **Stack:** Next.js 15, shadcn/ui, Tailwind CSS, Firebase.
 - **Ambiente:** Docker via WSL2.
 - **Dono do Projeto:** Israel Lalli, UX Designer Senior experiente em CSS e HTML (Controle total de UI/UX).
