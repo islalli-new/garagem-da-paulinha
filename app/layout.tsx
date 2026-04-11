@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     description: siteConfig.shareDescription,
     images: [
       {
-        url: "/social/share-image-garagem-da-paulinha.png",
+        url: "/social/share-image-garagem-da-paulinha.webp",
         width: 1536,
         height: 1024,
         alt: siteConfig.shareImageAlt,
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.shareTitle,
     description: siteConfig.shareDescription,
-    images: ["/social/share-image-garagem-da-paulinha.png"],
+    images: ["/social/share-image-garagem-da-paulinha.webp"],
   },
   icons: {
     icon: [
