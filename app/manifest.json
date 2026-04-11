@@ -1,0 +1,30 @@
+{
+  "id": "/",
+  "name": "Garagem da Paulinha",
+  "short_name": "Garagem",
+  "description": "Plataforma da Garagem da Paulinha para operar, organizar e evoluir o negocio com experiencia instalavel e base pronta para PWA.",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "browser"],
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#9f275f",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

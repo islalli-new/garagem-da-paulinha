@@ -27,10 +27,25 @@ Base em Next.js 16 com shadcn/ui, Firebase Web SDK, Firestore e setup inicial de
 
 ## PWA
 
-- O manifesto esta em `app/manifest.ts`.
+- O manifesto esta em `app/manifest.json` e passa a ser a fonte unica de verdade do PWA.
+- A metadata global do app esta em `app/layout.tsx`.
+- A imagem de compartilhamento aprovada esta em `public/social/share-image-garagem-da-paulinha.png`.
+- As splash screens iOS estao em `public/apple-splash/` e os links sao declarados em `app/head.tsx`.
 - O service worker e gerado via `@ducanh2912/next-pwa`.
 - Em desenvolvimento o service worker fica desabilitado para evitar cache persistente.
 - Para validar instalacao real, rode `npm run build && npm run start`.
+
+## Branding e compartilhamento
+
+- Configure `NEXT_PUBLIC_APP_URL` com a URL publica real do projeto para gerar canonical, Open Graph e Twitter cards absolutos.
+- O titulo principal, descricao, cor da barra do navegador e keywords ficam centralizados em `lib/site-config.ts`.
+- Se mudar favicon, nome curto do app ou cor de tema, atualize `lib/site-config.ts` e `app/manifest.json` juntos.
+
+## Splash iOS
+
+- As startup images do iOS dependem de resolucoes especificas por device e orientacao.
+- Os assets finais ficam em `public/apple-splash/`.
+- Se voce gerar novas versoes, basta substituir os PNGs e ajustar `lib/apple-startup-images.ts` quando houver novos devices.
 
 ## Passo a passo de teste
 
