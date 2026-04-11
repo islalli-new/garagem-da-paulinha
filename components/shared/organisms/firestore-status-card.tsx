@@ -1,34 +1,84 @@
 "use client"
 
 import { usePublicFirestoreStatus } from "@/hooks/use-public-firestore-status"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Badge } from "@/components/ui/badge"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export function FirestoreStatusCard() {
   const { loading, available, exists, error, data } = usePublicFirestoreStatus()
 
-  return (
-    <article className="border border-border bg-card p-6 shadow-sm">
-      <div className="space-y-4">
-        <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Firestore</p>
-          <h2 className="mt-2 font-heading text-2xl">Leitura real do banco</h2>
-        </div>
+  if (loading) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardDescription className="text-xs uppercase tracking-[0.3em]">
+            Firestore
+          </CardDescription>
+          <CardTitle className="text-2xl">Leitura real do banco</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <Skeleton className="h-16 w-full" />
+          <Skeleton className="h-16 w-full" />
+          <Skeleton className="h-28 w-full" />
+        </CardContent>
+      </Card>
+    )
+  }
 
-        <div className="space-y-3 text-sm text-muted-foreground">
-          <p>
-            SDK: <strong className="text-foreground">{available ? "conectado" : loading ? "carregando" : "indisponivel"}</strong>
-          </p>
-          <p>
-            Documento publico <strong className="text-foreground">app_public/status</strong>: <strong className="text-foreground">{loading ? "verificando" : exists ? "encontrado" : "ausente"}</strong>
-          </p>
-          {error ? <p className="text-destructive">{error}</p> : null}
-        </div>
+  return (
+    <Card>
+      <CardHeader>
+        <CardDescription className="text-xs uppercase tracking-[0.3em]">
+          Firestore
+        </CardDescription>
+        <CardTitle className="text-2xl">Leitura real do banco</CardTitle>
+      </CardHeader>
+
+      <CardContent className="space-y-4">
+        <Card size="sm" className="rounded-3xl border border-border bg-background/70 shadow-none">
+          <CardContent className="flex items-center justify-between gap-4 py-4 text-sm">
+            <span className="text-muted-foreground">SDK</span>
+            <Badge variant={available ? "default" : "outline"}>
+              {available ? "conectado" : "indisponivel"}
+            </Badge>
+          </CardContent>
+        </Card>
+
+        <Card size="sm" className="rounded-3xl border border-border bg-background/70 shadow-none">
+          <CardContent className="flex items-center justify-between gap-4 py-4 text-sm">
+            <span className="text-muted-foreground">Documento publico app_public/status</span>
+            <Badge variant={exists ? "default" : "outline"}>
+              {exists ? "encontrado" : "ausente"}
+            </Badge>
+          </CardContent>
+        </Card>
+
+        {error ? (
+          <Alert variant="destructive">
+            <AlertTitle>Falha na leitura do Firestore</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        ) : null}
 
         {data ? (
-          <pre className="overflow-x-auto border border-border bg-background p-4 text-xs text-muted-foreground">
-            {JSON.stringify(data, null, 2)}
-          </pre>
+          <Card size="sm" className="rounded-3xl border border-border bg-background/70 shadow-none">
+            <CardContent className="py-4">
+              <p className="mb-3 text-sm text-muted-foreground">Payload retornado</p>
+              <pre className="overflow-x-auto text-xs text-muted-foreground">
+                {JSON.stringify(data, null, 2)}
+              </pre>
+            </CardContent>
+          </Card>
         ) : null}
-      </div>
-    </article>
+      </CardContent>
+    </Card>
   )
 }

@@ -7,10 +7,20 @@
 ## Restrições Críticas:
 - **Apenas Componentes Oficiais:** Não invente componentes de UI complexos. Use apenas o que estiver na pasta `components/ui`.
 - **Workflow do shadcn/ui:** Se um componente não existir em `components/ui`, peça para o usuário rodar `npx shadcn@latest add [component-name]`. Nunca tente recriar o componente manualmente.
+- **Tolerância Zero para "Pseudo-shadcn":** É proibido simular componentes oficiais com `div`, `section`, `button` estilizados quando existir um equivalente esperado no ecossistema shadcn/ui, como `Card`, `Tabs`, `Accordion`, `Dialog`, `Sheet`, `Alert`, `Table`, `Form`, `Select`, `Popover`, `Dropdown Menu`, `Drawer`, `Badge`, `Skeleton` e similares.
+- **Bloqueio Obrigatório por Componente Ausente:** Se a interface pedida depender de um componente oficial que ainda não existe em `components/ui`, interrompa a implementação daquela parte e responda com a sugestão explícita de instalação via `npx shadcn@latest add [component-name]` antes de continuar.
+- **Sem Estruturas Visuais Autorais:** Não criar manualmente cards, banners, painéis, modais, menus, abas, tabelas, formulários compostos ou qualquer bloco visual que devesse nascer de componentes oficiais do shadcn/ui.
 - **Tailwind CSS:** Use apenas classes utilitárias do Tailwind. Evite CSS arbitrário ou estilos inline, a menos que seja estritamente necessário para animações complexas. Consulte o usuário para obter orientação sobre casos específicos.
 - **UX First:** Como o autor é UX Designer, priorize acessibilidade (ARIA labels) e estados de hover/focus consistentes com os padrões do Radix UI.
 - **Firebase:** Para lógica de dados, use o SDK do Firebase. Mantenha a lógica separada da UI.
 - **Respeite o Design System:** Use exclusivamente componentes da pasta `components/ui` (shadcn).
+
+## Protocolo Obrigatório para Novas Telas e Seções
+1. **Auditoria Prévia:** Antes de montar a UI, verifique quais componentes oficiais já existem em `components/ui`.
+2. **Gap de Componentes:** Se faltar qualquer componente estrutural, não improvise. Solicite a instalação do componente oficial correspondente.
+3. **Composição Restritiva:** Monte Molecules e Organisms apenas combinando componentes oficiais existentes em `components/ui`.
+4. **Sem Atalhos de Layout para Substituir Componente:** Tailwind serve para espaçamento, responsividade e composição; não para substituir primitivas oficiais do shadcn.
+5. **Se houver dúvida entre "montar na mão" ou pedir instalação:** sempre pedir instalação.
 
 ## Arquitetura Estrita (Atomic Design)
 1. **Atoms (components/ui):** Componentes base do shadcn (Button, Input, Badge).
@@ -57,6 +67,7 @@ Sempre que iniciarmos uma nova funcionalidade ou tela, siga estas fases estritam
 ## Regras de Componentização
 - **Componentes "Burros":** Componentes de UI devem apenas receber props e renderizar. Toda lógica de "como buscar o dado" deve ficar fora deles (em Hooks ou Server Components).
 - **Skeleton States:** Sempre projete o estado de carregamento (Loading) usando o componente `Skeleton` do shadcn antes de finalizar a tela.
+- **Cards e Blocos:** Se a interface tiver aparência de card, painel ou bloco semântico, use o componente oficial correspondente de `components/ui` ou pare e peça instalação. Não substituir por containers genéricos estilizados.
 
 ## Segurança e Blindagem (Security First)
 1. **Princípio do Menor Privilégio:** Nunca sugira configurações de banco de dados (Firebase Rules) com leitura/escrita aberta ao público (`allow read, write: if true`).
