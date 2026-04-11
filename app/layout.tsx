@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next"
 import { Geist, JetBrains_Mono, Merriweather, Roboto_Slab } from "next/font/google"
 
 import "./globals.css"
-import { FirebaseAnalytics } from "@/components/shared/organisms/firebase-analytics"
 import { InstallPromptBanner } from "@/components/shared/organisms/install-prompt-banner"
 import { ThemeProvider } from "@/components/theme-provider"
 import { metadataBase, siteConfig } from "@/lib/site-config"
@@ -117,7 +116,6 @@ export default function RootLayout({
     >
       <body>
         <ThemeProvider>
-          <FirebaseAnalytics />
           <InstallPromptBanner />
           {children}
         </ThemeProvider>

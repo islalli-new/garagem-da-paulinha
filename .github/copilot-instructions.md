@@ -22,6 +22,21 @@
 4. **Sem Atalhos de Layout para Substituir Componente:** Tailwind serve para espaçamento, responsividade e composição; não para substituir primitivas oficiais do shadcn.
 5. **Se houver dúvida entre "montar na mão" ou pedir instalação:** sempre pedir instalação.
 
+## Protocolo Obrigatório de Pesquisa Antes de Propor UI
+1. **Pesquisa obrigatória antes de propor:** Antes de sugerir qualquer solução visual, audite obrigatoriamente `components/ui`, `components.json` e os blocos oficiais do shadcn disponíveis via MCP.
+2. **Pesquisar componentes e blocos:** Para cada tela, seção ou fluxo novo, pesquise primeiro por componentes oficiais isolados, blocos prontos e itens de registry aderentes ao problema.
+3. **Prioridade para blocos oficiais:** Se existir bloco oficial ou item de registry compatível, ele deve ser priorizado antes de qualquer composição manual.
+4. **Bloqueio por ausência de pesquisa:** É proibido propor layout, estrutura de componentes ou plano de implementação visual antes de registrar o resultado da auditoria.
+5. **Solicitação explícita de instalação:** Se existir bloco oficial ou item de registry compatível, mas ele ainda não estiver instalado, interrompa a implementação e peça explicitamente o comando `npx shadcn@latest add [item]` antes de continuar.
+6. **Justificativa obrigatória ao descartar bloco oficial:** Se um bloco oficial for encontrado e não for usado, explique objetivamente por que ele não atende ao caso.
+7. **Formato obrigatório da primeira resposta de UI:** A primeira resposta para qualquer nova feature visual deve conter, nesta ordem: componentes oficiais encontrados, blocos oficiais encontrados, gaps, comando exato de instalação e só depois recomendação de implementação.
+8. **Nada de implementação sem auditoria aprovada:** Sem essa auditoria inicial, a implementação não deve começar.
+
+## Regra de Bloqueio por Bloco Oficial Existente
+- Se existir um bloco oficial do shadcn ou item de registry que resolva total ou parcialmente a estrutura pedida, o agente não pode propor alternativa artesanal antes de avaliar esse bloco.
+- A resposta correta deve começar pela análise do bloco oficial e, se necessário, pela solicitação de instalação do item correspondente.
+- Exemplos como `dashboard-01`, blocos de auth, sidebars, settings, tables, teams, lists e padrões equivalentes devem sempre ser pesquisados antes de compor uma solução manual.
+
 ## Arquitetura Estrita (Atomic Design)
 1. **Atoms (components/ui):** Componentes base do shadcn (Button, Input, Badge).
 2. **Molecules (components/shared/molecules):** Grupos de átomos funcionando juntos (ex: SearchBar = Input + Button).
@@ -46,6 +61,12 @@
 
 ## Fluxo de Trabalho: UI-First & Prototipagem
 Sempre que iniciarmos uma nova funcionalidade ou tela, siga estas fases estritamente:
+
+### Etapa 0: Auditoria e Pesquisa
+1. **Sem implementação imediata:** A primeira resposta deve ser de pesquisa e auditoria, não de execução.
+2. **Uso obrigatório do MCP do shadcn:** Quando disponível, use o MCP do shadcn para verificar componentes, blocos, itens de registry e exemplos oficiais antes de propor UI.
+3. **Evidência mínima da pesquisa:** A resposta inicial deve indicar claramente quais componentes instalados foram verificados, quais blocos oficiais foram encontrados, quais gaps existem e qual comando exato precisa ser rodado em caso de instalação.
+4. **Aprovação implícita só após auditoria:** Só prossiga para implementação depois que a auditoria estiver clara e não houver bloqueio por componente ou bloco ausente.
 
 ### Fase 1: Prototipagem Estática (Mock-Driven)
 1. **Dados de Exemplo:** Crie ou utilize arquivos na pasta `src/mocks/` para simular a resposta do banco de dados.

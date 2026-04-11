@@ -3,7 +3,7 @@
 ## Direcao do produto
 
 - O app nasce como um assistente para vendedores de carro, com ambicao de escalar depois da POC.
-- A navegacao principal deve usar app shell com sidebar.
+- A navegacao principal deve usar app shell com sidebar (deve ser responsivo mobile first).
 - As tres areas centrais sao Portifolio, Negociacoes e Contatos.
 - A entrada inicial do produto deve ser Portifolio.
 
@@ -11,7 +11,7 @@
 
 ### Portifolio
 
-- Reune os veiculos disponiveis.
+- Reune os veiculos disponiveis. Com possibilidade de busca
 - A POC deve prever listagem e cadastro/edicao basica de veiculos.
 - Essa e a primeira entrega funcional recomendada.
 
@@ -26,7 +26,7 @@
 - Deve ser tratada como o nucleo do produto, com mentalidade de CRM.
 - Precisa permitir identificar oportunidades com rapidez.
 - Deve conectar contato(s) e veiculo(s).
-- Precisa sustentar proposta, condicoes de pagamento e proximos passos.
+- Precisa sustentar proposta, condicoes de pagamento e proximos passos por veiculo.
 - Ja deve nascer preparada para evolucoes futuras, como compartilhamento de PDF.
 - O pipeline de vendas ainda nao foi fechado e deve ser definido depois sem exigir refatoracao estrutural.
 

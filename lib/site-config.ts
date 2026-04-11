@@ -1,8 +1,30 @@
-const fallbackSiteUrl = "http://localhost:3000"
+const localhostSiteUrl = "http://localhost:3000"
+
+function getDefaultSiteUrl() {
+  if (process.env.NODE_ENV !== "production") {
+    return localhostSiteUrl
+  }
+
+  const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID?.trim()
+
+  if (projectId) {
+    return `https://${projectId}.web.app`
+  }
+
+  return localhostSiteUrl
+}
 
 function parseSiteUrl(value?: string) {
+  const fallbackSiteUrl = getDefaultSiteUrl()
+
   try {
-    return new URL(value?.trim() || fallbackSiteUrl)
+    const candidateUrl = new URL(value?.trim() || fallbackSiteUrl)
+
+    if (process.env.NODE_ENV === "production" && candidateUrl.hostname === "localhost") {
+      return new URL(fallbackSiteUrl)
+    }
+
+    return candidateUrl
   } catch {
     return new URL(fallbackSiteUrl)
   }
