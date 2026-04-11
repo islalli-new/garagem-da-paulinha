@@ -2,6 +2,7 @@
 
 import * as React from "react"
 
+import { GarageSwitcher } from "@/components/garage-switcher"
 import { NavMain } from "@/components/nav-main"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
@@ -10,21 +11,17 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   BookOpen01Icon,
   BriefcaseDollarIcon,
   Car01Icon,
-  CommandIcon,
   ContactBookIcon,
-  HelpCircleIcon,
+  RocketIcon,
 } from "@hugeicons/core-free-icons"
 
-import { crmCurrentUser } from "@/src/mocks/crm-shell"
+import { crmCurrentUser, crmGarages } from "@/src/mocks/crm-shell"
 
 const data = {
   user: {
@@ -34,40 +31,40 @@ const data = {
   },
   navMain: [
     {
-      title: "Portfólio",
-      url: "/portfolio",
-      icon: (
-        <HugeiconsIcon icon={Car01Icon} strokeWidth={2} />
-      ),
-    },
-    {
       title: "Negociações",
       url: "/negociacoes",
       icon: (
-        <HugeiconsIcon icon={BriefcaseDollarIcon} strokeWidth={2} />
+        <HugeiconsIcon icon={BriefcaseDollarIcon} size={16} strokeWidth={2} />
+      ),
+    },
+    {
+      title: "Portfólio",
+      url: "/portfolio",
+      icon: (
+        <HugeiconsIcon icon={Car01Icon} size={16} strokeWidth={2} />
       ),
     },
     {
       title: "Contatos",
       url: "/contatos",
       icon: (
-        <HugeiconsIcon icon={ContactBookIcon} strokeWidth={2} />
+        <HugeiconsIcon icon={ContactBookIcon} size={16} strokeWidth={2} />
       ),
     },
   ],
   navSecondary: [
     {
-      title: "Ajuda",
-      url: "/ajuda",
+      title: "Performance",
+      url: "/performance",
       icon: (
-        <HugeiconsIcon icon={HelpCircleIcon} strokeWidth={2} />
+        <HugeiconsIcon icon={RocketIcon} size={16} strokeWidth={2} />
       ),
     },
     {
-      title: "Base de conhecimento",
+      title: "Conhecimento",
       url: "/base-conhecimento",
       icon: (
-        <HugeiconsIcon icon={BookOpen01Icon} strokeWidth={2} />
+        <HugeiconsIcon icon={BookOpen01Icon} size={16} strokeWidth={2} />
       ),
     },
   ],
@@ -75,21 +72,9 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:p-1.5!"
-            >
-              <a href="#">
-                <HugeiconsIcon icon={CommandIcon} strokeWidth={2} className="size-5!" />
-                <span className="text-base font-semibold">Acme Inc.</span>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <GarageSwitcher garages={crmGarages} />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
