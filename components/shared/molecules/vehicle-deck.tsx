@@ -64,7 +64,7 @@ export function VehicleDeck({
     <div
       data-slot="deck"
       className={cn("relative", className)}
-      style={{ paddingBottom: stackCount > 0 ? `${Math.min(stackCount, MAX_VISIBLE_DEPTH) * CARD_OFFSET}px` : undefined }}
+      style={{ marginBottom: `${24 - Math.min(stackCount, MAX_VISIBLE_DEPTH) * CARD_OFFSET}px`, paddingBottom: stackCount > 0 ? `${Math.min(stackCount, MAX_VISIBLE_DEPTH) * CARD_OFFSET}px` : undefined }}
     >
       {/* Placeholder invisível que mantém a altura do container */}
       <div data-slot="deck-spacer" className="pointer-events-none invisible">
