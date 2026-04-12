@@ -114,7 +114,7 @@ export default function RootLayout({
         merriweatherHeading.variable,
       )}
     >
-      <body>
+      <body suppressHydrationWarning>
         <ThemeProvider>
           <InstallPromptBanner />
           {children}

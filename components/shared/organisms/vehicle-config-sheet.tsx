@@ -150,9 +150,6 @@ export function VehicleConfigSheet({
             </Field>
 
             <SheetFooter className="mt-auto flex-row items-center gap-2 p-0">
-              <Button type="submit" className="flex-1">
-                Salvar
-              </Button>
               <Button
                 type="button"
                 variant="outline"
@@ -160,6 +157,9 @@ export function VehicleConfigSheet({
                 onClick={handleNew}
               >
                 Novo
+              </Button>
+              <Button type="submit" className="flex-1">
+                Salvar
               </Button>
               {totalVersions >= 2 && (
                 <Button

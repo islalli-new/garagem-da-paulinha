@@ -104,6 +104,7 @@ export default function PortfolioPage() {
       configCount: activeConfig ? countConfiguredParams(activeConfig) : 0,
       versionCount: versions.length,
       currentVersion: idx + 1,
+      discountPercent: activeConfig?.discount ?? 0,
     }
   }
 
@@ -128,7 +129,7 @@ export default function PortfolioPage() {
       {vehicles.length > 0 ? (
         <div className="columns-2 gap-3 sm:gap-4 lg:columns-3 xl:columns-4 [column-width:140px] sm:[column-width:200px]">
           {vehicles.map((vehicle) => {
-            const { configCount, versionCount, currentVersion } = getCardProps(vehicle)
+            const { configCount, versionCount, currentVersion, discountPercent } = getCardProps(vehicle)
             return (
               <VehicleCard
                 key={vehicle.id}
@@ -140,7 +141,8 @@ export default function PortfolioPage() {
                 configCount={configCount}
                 versionCount={versionCount}
                 currentVersion={currentVersion}
-                className="mb-3 break-inside-avoid sm:mb-4"
+                discountPercent={discountPercent}
+                className="mb-10 break-inside-avoid sm:mb-12"
               />
             )
           })}

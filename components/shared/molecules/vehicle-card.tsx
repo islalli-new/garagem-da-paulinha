@@ -43,6 +43,8 @@ interface VehicleCardProps {
   versionCount?: number
   /** Current active version (1-based) */
   currentVersion?: number
+  /** Accumulated discount percentage to display */
+  discountPercent?: number
   className?: string
 }
 
@@ -55,6 +57,7 @@ export function VehicleCard({
   configCount = 0,
   versionCount = 0,
   currentVersion = 1,
+  discountPercent = 0,
   className,
 }: VehicleCardProps) {
   const status = statusConfig[vehicle.status]
@@ -129,7 +132,7 @@ export function VehicleCard({
 
         {/* Info */}
         <CardContent className="flex flex-col gap-1.5 p-2.5 sm:gap-2 sm:p-4">
-          <Badge variant="secondary" className="w-fit px-2 py-0.5 text-xs">
+          <Badge variant="secondary" className="w-fit rounded-sm px-2 py-0.5 text-xs">
             F {vehicle.yearManufacture} · M {vehicle.yearModel}
           </Badge>
           <CardTitle className="text-sm font-semibold sm:text-base">
@@ -138,20 +141,23 @@ export function VehicleCard({
           <p className="text-xs text-muted-foreground sm:text-sm">
             {vehicle.version}
           </p>
-          <div className="flex flex-wrap items-baseline gap-x-1.5">
-            {hasSale ? (
-              <>
-                <span className="text-xs text-muted-foreground line-through sm:text-sm">
-                  {formatCurrency(vehicle.price)}
-                </span>
-                <span className="text-sm font-semibold sm:text-lg">
-                  {formatCurrency(vehicle.salePrice!)}
-                </span>
-              </>
-            ) : (
-              <span className="text-sm font-semibold sm:text-lg">
-                {formatCurrency(vehicle.price)}
-              </span>
+          <div className="flex flex-col gap-0.5">
+            <span className="text-sm font-semibold sm:text-lg">
+              {formatCurrency(hasSale ? vehicle.salePrice! : vehicle.price)}
+            </span>
+            {(hasSale || discountPercent > 0) && (
+              <div className="flex flex-wrap items-center gap-x-1.5">
+                {hasSale && (
+                  <span className="text-xs text-muted-foreground line-through sm:text-sm">
+                    {formatCurrency(vehicle.price)}
+                  </span>
+                )}
+                {discountPercent > 0 && (
+                  <Badge variant="secondary" className="rounded-sm px-1 py-0 text-[10px] font-semibold sm:text-xs">
+                    -{discountPercent}%
+                  </Badge>
+                )}
+              </div>
             )}
           </div>
         </CardContent>
