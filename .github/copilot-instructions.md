@@ -90,6 +90,9 @@ Sempre que iniciarmos uma nova funcionalidade ou tela, siga estas fases estritam
 - **Skeleton States:** Sempre projete o estado de carregamento (Loading) usando o componente `Skeleton` do shadcn antes de finalizar a tela.
 - **Cards e Blocos:** Se a interface tiver aparência de card, painel ou bloco semântico, use o componente oficial correspondente de `components/ui` ou pare e peça instalação. Não substituir por containers genéricos estilizados.
 
+## Decisões de UX do Produto
+- **Formulários de criação/edição nunca em modal:** Cadastro de novo veículo (Portfólio), nova negociação e novo contato devem abrir em página própria com navegação por breadcrumb. Nunca propor Dialog ou modal para esses fluxos. Modais ficam reservados para confirmações rápidas e ações destrutivas, não para formulários de cadastro.
+
 ## Segurança e Blindagem (Security First)
 1. **Princípio do Menor Privilégio:** Nunca sugira configurações de banco de dados (Firebase Rules) com leitura/escrita aberta ao público (`allow read, write: if true`).
 2. **Validação de Client-Side vs Server-Side:** Lembre-se que o usuário (Israel) domina a UI, mas a IA deve garantir que dados sensíveis não fiquem expostos no navegador. Use variáveis de ambiente (`.env.local`) para chaves sensíveis.

@@ -4,6 +4,7 @@ import * as React from "react"
 
 import { GarageSwitcher } from "@/components/garage-switcher"
 import { NavMain } from "@/components/nav-main"
+import { NavSearch } from "@/components/nav-search"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
 import {
@@ -36,6 +37,7 @@ const data = {
       icon: (
         <HugeiconsIcon icon={BriefcaseDollarIcon} size={16} strokeWidth={2} />
       ),
+      onAdd: () => console.log("[QuickCreate] Nova negociação"),
     },
     {
       title: "Portfólio",
@@ -43,6 +45,7 @@ const data = {
       icon: (
         <HugeiconsIcon icon={Car01Icon} size={16} strokeWidth={2} />
       ),
+      onAdd: () => console.log("[QuickCreate] Novo veículo"),
     },
     {
       title: "Contatos",
@@ -50,6 +53,7 @@ const data = {
       icon: (
         <HugeiconsIcon icon={ContactBookIcon} size={16} strokeWidth={2} />
       ),
+      onAdd: () => console.log("[QuickCreate] Novo contato"),
     },
   ],
   navSecondary: [
@@ -77,6 +81,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <GarageSwitcher garages={crmGarages} />
       </SidebarHeader>
       <SidebarContent>
+        <NavSearch />
         <NavMain items={data.navMain} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>

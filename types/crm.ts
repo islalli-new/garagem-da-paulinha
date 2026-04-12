@@ -44,3 +44,46 @@ export interface CrmUserProfile {
   email: string
   avatarUrl?: string
 }
+
+// ── Portfólio (Veículos) ──────────────────────────────────
+
+export type VehicleFuelType = "flex" | "gasolina" | "etanol" | "diesel" | "eletrico" | "hibrido"
+export type VehicleTransmission = "manual" | "automatico" | "cvt" | "automatizado"
+export type VehicleStatus = "disponivel" | "reservado" | "vendido"
+
+export interface Vehicle {
+  id: string
+  brand: string
+  model: string
+  version: string
+  yearManufacture: number
+  yearModel: number
+  color: string
+  plate: string
+  price: number
+  salePrice?: number
+  mileage: number
+  fuel: VehicleFuelType
+  transmission: VehicleTransmission
+  status: VehicleStatus
+  image: {
+    src: string
+    alt: string
+    width: number
+    height: number
+  }
+  notes?: string
+  createdAt: string
+}
+
+// ── Busca Universal ───────────────────────────────────────
+
+export type UniversalSearchGroup = "portfolio" | "negociacoes" | "contatos"
+
+export interface UniversalSearchItem {
+  id: string
+  group: UniversalSearchGroup
+  label: string
+  description: string
+  href: string
+}
