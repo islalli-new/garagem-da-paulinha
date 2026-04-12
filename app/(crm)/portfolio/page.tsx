@@ -6,7 +6,7 @@ import { toast } from "sonner"
 import type { Vehicle } from "@/types/crm"
 import { mockVehicles } from "@/src/mocks/portfolio"
 
-import { VehicleCard } from "@/components/shared/molecules/vehicle-card"
+import { VehicleDeck } from "@/components/shared/molecules/vehicle-deck"
 import { PortfolioEmptyState } from "@/components/shared/organisms/portfolio-empty-state"
 import {
   VehicleConfigSheet,
@@ -96,18 +96,6 @@ export default function PortfolioPage() {
     toast.info(`Nova condição ${total} criada (cópia)`)
   }
 
-  function getCardProps(vehicle: Vehicle) {
-    const versions = configMap[vehicle.id] ?? []
-    const idx = getActiveIndex(vehicle.id)
-    const activeConfig = versions[idx]
-    return {
-      configCount: activeConfig ? countConfiguredParams(activeConfig) : 0,
-      versionCount: versions.length,
-      currentVersion: idx + 1,
-      discountPercent: activeConfig?.discount ?? 0,
-    }
-  }
-
   function getSheetProps() {
     if (!configVehicle) return {}
     const versions = configMap[configVehicle.id] ?? []
@@ -128,24 +116,19 @@ export default function PortfolioPage() {
     <div className="flex flex-1 flex-col gap-6">
       {vehicles.length > 0 ? (
         <div className="columns-2 gap-3 sm:gap-4 lg:columns-3 xl:columns-4 [column-width:140px] sm:[column-width:200px]">
-          {vehicles.map((vehicle) => {
-            const { configCount, versionCount, currentVersion, discountPercent } = getCardProps(vehicle)
-            return (
-              <VehicleCard
+          {vehicles.map((vehicle) => (
+              <VehicleDeck
                 key={vehicle.id}
                 vehicle={vehicle}
+                configs={configMap[vehicle.id] ?? []}
+                activeIndex={getActiveIndex(vehicle.id)}
+                onNextCondition={() => handleNextCondition(vehicle)}
                 onView={handleView}
                 onEdit={handleEdit}
                 onBookmark={handleBookmark}
-                onNextCondition={handleNextCondition}
-                configCount={configCount}
-                versionCount={versionCount}
-                currentVersion={currentVersion}
-                discountPercent={discountPercent}
-                className="mb-10 break-inside-avoid sm:mb-12"
+                className="pb-10 break-inside-avoid"
               />
-            )
-          })}
+            ))}
         </div>
       ) : (
         <PortfolioEmptyState onAddVehicle={() => toast.info("Em breve")} />

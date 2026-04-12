@@ -64,13 +64,66 @@ export function VehicleCard({
   const hasSale = vehicle.salePrice != null && vehicle.salePrice < vehicle.price
   const ratio = vehicle.image.width / vehicle.image.height
 
-  const showSecondaryFooter = vehicle.status !== "disponivel"
+  const showHeader = vehicle.status !== "disponivel"
 
   return (
-    <div className={cn("relative", className)}>
-      <Card className="relative z-10 overflow-hidden p-0">
-        {/* Toolbar do card */}
-        <div className="flex items-center justify-between px-2 py-1.5 sm:px-3 sm:py-2">
+    <div className={cn(className)}>
+      <Card className="overflow-hidden p-0">
+        {/* Header — badges de status */}
+        {showHeader && (
+          <div className="flex flex-wrap gap-1.5 p-2 sm:p-4">
+            <Badge
+              style={{ background: status.bg }}
+              className="text-xs text-white"
+            >
+              {status.label}
+            </Badge>
+          </div>
+        )}
+
+        {/* Body — imagem */}
+        <AspectRatio ratio={ratio} className="overflow-hidden">
+          <img
+            src={vehicle.image.src}
+            alt={vehicle.image.alt}
+            className="block size-full object-cover object-center"
+          />
+        </AspectRatio>
+
+        {/* Body — info */}
+        <CardContent className="flex flex-col gap-1.5 p-2 sm:gap-2 sm:p-4">
+          <Badge variant="secondary" className="w-fit rounded-sm px-2 py-0.5 text-xs">
+            F {vehicle.yearManufacture} · M {vehicle.yearModel}
+          </Badge>
+          <CardTitle className="text-sm font-semibold sm:text-base">
+            {vehicle.brand} {vehicle.model}
+          </CardTitle>
+          <p className="text-xs text-muted-foreground sm:text-sm">
+            {vehicle.version}
+          </p>
+          <div className="flex flex-col gap-0.5">
+            <span className="text-sm font-semibold sm:text-lg">
+              {formatCurrency(hasSale ? vehicle.salePrice! : vehicle.price)}
+            </span>
+            {(hasSale || discountPercent > 0) && (
+              <div className="flex flex-wrap items-center gap-x-1.5">
+                {hasSale && (
+                  <span className="text-xs text-muted-foreground line-through sm:text-sm">
+                    {formatCurrency(vehicle.price)}
+                  </span>
+                )}
+                {discountPercent > 0 && (
+                  <Badge variant="secondary" className="rounded-sm px-1 py-0 text-[10px] font-semibold sm:text-xs">
+                    -{discountPercent}%
+                  </Badge>
+                )}
+              </div>
+            )}
+          </div>
+        </CardContent>
+
+        {/* Toolbar */}
+        <div className="flex items-center justify-between p-2 sm:p-4">
           <ToggleGroup type="multiple" variant="outline" size="sm" className="h-7 sm:h-8">
             <ToggleGroupItem
               value="settings"
@@ -120,60 +173,7 @@ export function VehicleCard({
             </Button>
           </div>
         </div>
-
-        {/* Imagem */}
-        <AspectRatio ratio={ratio} className="overflow-hidden">
-          <img
-            src={vehicle.image.src}
-            alt={vehicle.image.alt}
-            className="block size-full object-cover object-center"
-          />
-        </AspectRatio>
-
-        {/* Info */}
-        <CardContent className="flex flex-col gap-1.5 p-2.5 sm:gap-2 sm:p-4">
-          <Badge variant="secondary" className="w-fit rounded-sm px-2 py-0.5 text-xs">
-            F {vehicle.yearManufacture} · M {vehicle.yearModel}
-          </Badge>
-          <CardTitle className="text-sm font-semibold sm:text-base">
-            {vehicle.brand} {vehicle.model}
-          </CardTitle>
-          <p className="text-xs text-muted-foreground sm:text-sm">
-            {vehicle.version}
-          </p>
-          <div className="flex flex-col gap-0.5">
-            <span className="text-sm font-semibold sm:text-lg">
-              {formatCurrency(hasSale ? vehicle.salePrice! : vehicle.price)}
-            </span>
-            {(hasSale || discountPercent > 0) && (
-              <div className="flex flex-wrap items-center gap-x-1.5">
-                {hasSale && (
-                  <span className="text-xs text-muted-foreground line-through sm:text-sm">
-                    {formatCurrency(vehicle.price)}
-                  </span>
-                )}
-                {discountPercent > 0 && (
-                  <Badge variant="secondary" className="rounded-sm px-1 py-0 text-[10px] font-semibold sm:text-xs">
-                    -{discountPercent}%
-                  </Badge>
-                )}
-              </div>
-            )}
-          </div>
-        </CardContent>
       </Card>
-
-      {/* Rodapé secundário — aparece "por trás" do card */}
-      {showSecondaryFooter && (
-        <div className="relative z-0 -mt-2 flex flex-wrap gap-1.5 rounded-b-xl border px-3 pt-5 pb-2.5">
-          <Badge
-            style={{ background: status.bg }}
-            className="text-xs text-white"
-          >
-            {status.label}
-          </Badge>
-        </div>
-      )}
     </div>
   )
 }
