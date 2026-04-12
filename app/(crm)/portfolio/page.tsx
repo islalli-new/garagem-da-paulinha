@@ -126,7 +126,7 @@ export default function PortfolioPage() {
                 onView={handleView}
                 onEdit={handleEdit}
                 onBookmark={handleBookmark}
-                className="pb-10 break-inside-avoid"
+                className="break-inside-avoid"
               />
             ))}
         </div>

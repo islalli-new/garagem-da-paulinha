@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils"
 const TRANSITION_MS = 1000
 const CARD_OFFSET = 12
 const CARD_SCALE_STEP = 0.02
+const MAX_VISIBLE_DEPTH = 2
 
 interface VehicleDeckProps {
   vehicle: Vehicle
@@ -63,7 +64,7 @@ export function VehicleDeck({
     <div
       data-slot="deck"
       className={cn("relative", className)}
-      style={{ paddingBottom: stackCount > 0 ? `${stackCount * CARD_OFFSET}px` : undefined }}
+      style={{ paddingBottom: stackCount > 0 ? `${Math.min(stackCount, MAX_VISIBLE_DEPTH) * CARD_OFFSET}px` : undefined }}
     >
       {/* Placeholder invisível que mantém a altura do container */}
       <div data-slot="deck-spacer" className="pointer-events-none invisible">
@@ -80,22 +81,21 @@ export function VehicleDeck({
         const isTop = depth === 0
         const isExiting = isTop && isAnimating
 
-        // Quando animando:
-        // - card do topo vai pro fundo da pilha
-        // - os demais sobem 1 nível
+        // Posição visual com cap
+        // Quando animando, os cards de trás sobem 1 nível (como no demo)
         let visualDepth: number
-        if (isExiting) {
-          visualDepth = stackCount
-        } else if (isAnimating) {
-          visualDepth = depth - 1
+        if (isAnimating && !isExiting) {
+          visualDepth = Math.min(depth - 1, MAX_VISIBLE_DEPTH)
         } else {
-          visualDepth = depth
+          visualDepth = Math.min(depth, MAX_VISIBLE_DEPTH)
         }
 
-        const translateY = visualDepth * CARD_OFFSET
-        const scale = 1 - visualDepth * CARD_SCALE_STEP
-        const opacity = isExiting ? 0.4 : 1
-        const zIndex = isExiting ? 0 : cardCount - visualDepth
+        // Card saindo: sobe e some (igual demo: -60px, scale 1.05, opacity 0)
+        const translateY = isExiting ? -60 : visualDepth * CARD_OFFSET
+        const scale = isExiting ? 1.05 : 1 - visualDepth * CARD_SCALE_STEP
+        const opacity = isExiting ? 0 : 1
+        // z-index NUNCA muda durante animação — sempre baseado no depth original
+        const zIndex = cardCount - depth
 
         return (
           <div
@@ -106,6 +106,7 @@ export function VehicleDeck({
               transform: `translateY(${translateY}px) scale(${scale})`,
               zIndex,
               opacity,
+              filter: isExiting ? undefined : `brightness(${1 - visualDepth * 0.25})`,
               transition: `all ${TRANSITION_MS}ms cubic-bezier(0.25, 0.8, 0.25, 1)`,
               pointerEvents: isTop && !isExiting ? undefined : "none",
             }}
